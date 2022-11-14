@@ -34,7 +34,7 @@ let gamepassPrices = [5, 10, 25, 50, 100, 250, 1000, 5000, 10000, 100000, 100000
 	async function create() {
 		try {
 			let upload = await page.$("input[type=file]");
-			await upload.uploadFile("../Donation.png");
+			await upload.uploadFile("./Donation.png");
 			await page.click("#upload-button");
 			await page.waitForTimeout(1000);
 			await page.$("#upload-button");
