@@ -3,7 +3,7 @@ const child = require("child_process");
 const fs = require("fs");
 let dataFile;
 (async () => {
-	let location = prompt("enter the path to roblox account managaer: ");
+	let location = prompt("enter the path to roblox account manager: ");
 	if (!fs.existsSync(`${location}\\AccountData.json`)) return console.log("cannot find AccountData.json");
 	fs.copyFileSync(`${location}\\AccountData.json`, "./AccountData.json");
 	try {
