@@ -25,8 +25,8 @@ async function findFiles(url) {
         if (response.data.name !== current) {
             console.log(`Updating...\n${current} -> ${response.data.name}`);
 			if (fs.existsSync("node_modules")) fs.rmSync("node_modules", { recursive: true });
-			await findFiles("");
+            await findFiles("");
+            child.execSync("npm i", { stdio: "inherit" });
 		}
 	});
-    child.execSync("npm i", { stdio: "inherit" });
 })();
