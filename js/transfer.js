@@ -17,7 +17,7 @@ let item = process.argv[3];
 			currentUser = await noblox.setCookie(file[x]);
 			console.log(currentUser.UserName + ": " + currentUser.RobuxBalance);
 		}
-		if (currentUser.RobuxBalance > -1) {
+		if (currentUser.RobuxBalance > 4) {
 			//too lazy to do this properly
 			try {
 				await noblox.deleteFromInventory(item);
