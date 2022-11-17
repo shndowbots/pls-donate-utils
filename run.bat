@@ -16,6 +16,7 @@ if %message% == false (
     )
 )
 if not exist node_modules\ npm i
+node ./js/updater.js
 if not exist tokens.json (
     echo welcome, add a roblox token to start
     pause
