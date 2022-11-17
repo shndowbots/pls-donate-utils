@@ -7,25 +7,27 @@ if (!file[process.argv[2]]) return console.log("user not found");
 let item = process.argv[3];
 (async () => {
 	for (let x in file) {
-		if (x == process.argv[2]) return;
-		try {
-			currentUser = await noblox.setCookie(file[x]);
-			console.log(currentUser.UserName + ": " + currentUser.RobuxBalance);
-		} catch (e) {
-			console.log("rate limited, waiting 60 seconds...");
-			await new Promise((r) => setTimeout(r, 60000));
-			currentUser = await noblox.setCookie(file[x]);
-			console.log(currentUser.UserName + ": " + currentUser.RobuxBalance);
-		}
-		if (currentUser.RobuxBalance > 4) {
-			//too lazy to do this properly
+		if (x !== process.argv[2]) {
 			try {
-				await noblox.deleteFromInventory(item);
-			} catch (e) {}
-			child.execSync(`node ./js/product.js ${process.argv[2]} ${currentUser.RobuxBalance} ${item}`, { stdio: "inherit" });
-			await noblox.buy(item);
-			// rate limit wait
-			await new Promise((r) => setTimeout(r, 60000));
+				currentUser = await noblox.setCookie(file[x]);
+				console.log(currentUser.UserName + ": " + currentUser.RobuxBalance);
+			} catch (e) {
+				console.log("rate limited, waiting 60 seconds...");
+				await new Promise((r) => setTimeout(r, 60000));
+				currentUser = await noblox.setCookie(file[x]);
+				console.log(currentUser.UserName + ": " + currentUser.RobuxBalance);
+			}
+			if (currentUser.RobuxBalance > 4) {
+				//too lazy to do this properly
+				try {
+					await noblox.deleteFromInventory(item);
+				} catch (e) { }
+				child.execSync(`node ./js/product.js ${process.argv[2]} ${currentUser.RobuxBalance} ${item}`, { stdio: "inherit" });
+				await noblox.buy(item);
+				// rate limit wait
+				console.log("waiting 60 seconds (rate limit)")
+				await new Promise((r) => setTimeout(r, 60000));
+			}
 		}
 	}
 })();
