@@ -24,7 +24,7 @@ console.log("this may take a few minutes...\n\n");
 				try {
 					let pending = document.getElementsByClassName("amount icon-robux-container text-disabled")[0] ? document.getElementsByClassName("amount icon-robux-container text-disabled")[0].innerText : "0";
 					let current = document.getElementsByClassName("rbx-text-navbar-right text-header")[0] ? document.getElementsByClassName("rbx-text-navbar-right text-header")[0].innerText : "0";
-					return [parseInt(pending.replace(/\,/g, "")), parseInt(current.replace(/\,/g, ""))];
+					return [parseInt(pending.replace(/[\s, ]/g, "")), parseInt(current.replace(/[\s, ]/g, ""))];
 				} catch (e) {}
 			});
 			if (!robux) await getBalance();
